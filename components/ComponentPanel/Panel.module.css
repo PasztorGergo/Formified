@@ -1,0 +1,31 @@
+.panel {
+  @apply flex flex-col h-full p-4 items-center justify-evenly bg-slate-200 rounded-lg w-32 flex-grow-[0.2];
+}
+.button {
+  @apply relative flex items-center justify-start p-3 bg-slate-300 aspect-square text-slate-800 rounded-lg text-3xl cursor-pointer hover:bg-slate-800 hover:text-slate-300 transition-all;
+}
+.animation {
+  @apply text-transparent;
+  text-shadow: rgb(30 41 59) 0px 0px 0px;
+}
+.animation:hover {
+  @apply text-transparent;
+  text-shadow: rgb(203 213 225) 0px 0px 0px;
+}
+
+.button.active {
+  @apply bg-slate-800 text-slate-300;
+}
+.button.animation.active {
+  @apply text-transparent;
+  text-shadow: rgb(203 213 225) 0px 0px 0px;
+}
+
+.button::after {
+  @apply py-1 px-2 bg-slate-800 text-slate-300 absolute text-xs uppercase font-semibold rounded-lg origin-left scale-x-0 transition-transform;
+  content: attr(aria-label);
+  left: calc(2em + 100%);
+}
+.button:hover::after {
+  @apply scale-x-100;
+}

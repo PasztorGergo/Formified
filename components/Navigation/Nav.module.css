@@ -1,0 +1,19 @@
+.nav {
+  @apply w-full bg-transparent px-6 py-2 flex items-center;
+}
+.links {
+  @apply uppercase text-sm font-semibold flex-grow flex justify-end gap-8 items-center;
+}
+.link {
+  @apply relative z-[10] cursor-pointer;
+}
+.brand {
+  @apply capitalize font-semibold text-2xl text-pink-500;
+}
+.link::after {
+  @apply content-[""] bg-pink-500 bg-opacity-20 h-0 w-full transition-all absolute bottom-0 left-0 z-[-1];
+}
+.link:hover::after,
+.link.active::after {
+  @apply h-1/2;
+}

@@ -1,0 +1,3 @@
+.display {
+  @apply w-full flex-grow-[0.5];
+}
