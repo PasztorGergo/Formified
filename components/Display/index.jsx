@@ -4,7 +4,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useElements } from "../../Context/ElementProvider";
 
 export default function Display() {
-  const { elements, setElements } = useElements();
+  const { elements, setElements, setSelected } = useElements();
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -28,8 +28,12 @@ export default function Display() {
       <DragDropContext onDragEnd={(res) => onDragEnd(res)}>
         <Droppable droppableId={String(elements.length)}>
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {elements.map((el, index) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className={Style.dropable}
+            >
+              {elements.map((element, index) => (
                 <Draggable
                   key={index}
                   draggableId={String(index)}
@@ -41,8 +45,9 @@ export default function Display() {
                       ref={Dragprovided.innerRef}
                       {...Dragprovided.draggableProps}
                       {...Dragprovided.dragHandleProps}
+                      onClick={() => setSelected(element)}
                     >
-                      {el}
+                      {element.component}
                     </div>
                   )}
                 </Draggable>

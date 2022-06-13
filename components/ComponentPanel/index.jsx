@@ -10,28 +10,42 @@ import {
 import { useElements } from "../../Context/ElementProvider";
 import InputField from "../InputField";
 import Heading from "../Heading";
+import Select from "../Selection";
 
 export default function ComponentPanel() {
   const { setElements } = useElements();
 
   const addInput = () => {
-    return setElements((prev) =>
-      Array(prev).concat([
-        <InputField id={`test-${prev.lenght + 1}`} label="Input" />,
-      ])
-    );
+    return setElements((prev) => [
+      ...prev,
+      {
+        id: `input-${prev.length}`,
+        component: <InputField id={`input-${prev.length}`} />,
+        label: "Label",
+        placeholder: "Placeholder",
+        type: "text",
+      },
+    ]);
   };
   const addSelection = () => {
-    return setElements((prev) =>
-      Array(prev).concat([
-        <Selection id={`test-${prev.lenght + 1}`} label="Selection" />,
-      ])
-    );
+    return setElements((prev) => [
+      ...prev,
+      {
+        id: `select-${prev.length}`,
+        component: <Select id={`select-${prev.length}`} />,
+        label: "Label",
+      },
+    ]);
   };
   const addHeading = () => {
-    return setElements((prev) =>
-      Array(prev).concat([<Heading id={`test-${prev.lenght + 1}`} />])
-    );
+    return setElements((prev) => [
+      ...prev,
+      {
+        id: `heading-${prev.length}`,
+        component: <Heading id={`heading-${prev.length}`} />,
+        label: "Heading",
+      },
+    ]);
   };
   return (
     <aside className={Style.panel}>

@@ -1,0 +1,14 @@
+.label,
+.input {
+  @apply cursor-pointer;
+}
+
+.label {
+  @apply w-1/2;
+}
+.label > * {
+  @apply pl-3 bg-white outline-none border-none focus:bg-slate-100 transition-all duration-300 rounded-t-lg;
+}
+.input {
+  @apply bg-zinc-300 border-b-2 border-b-zinc-400 focus:border-b-zinc-600 transition-all outline-none py-1 px-3 h-10;
+}
