@@ -15,13 +15,23 @@ export default function ComponentPanel() {
   const { setElements } = useElements();
 
   const addInput = () => {
-    return setElements((prev) => Array(prev).concat([<InputField />]));
+    return setElements((prev) =>
+      Array(prev).concat([
+        <InputField id={`test-${prev.lenght + 1}`} label="Input" />,
+      ])
+    );
   };
   const addSelection = () => {
-    return setElements((prev) => Array(prev).concat([<Selection />]));
+    return setElements((prev) =>
+      Array(prev).concat([
+        <Selection id={`test-${prev.lenght + 1}`} label="Selection" />,
+      ])
+    );
   };
   const addHeading = () => {
-    return setElements((prev) => Array(prev).concat([<Heading />]));
+    return setElements((prev) =>
+      Array(prev).concat([<Heading id={`test-${prev.lenght + 1}`} />])
+    );
   };
   return (
     <aside className={Style.panel}>
