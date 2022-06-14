@@ -3,8 +3,8 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./input.module.css";
 
 export default function InputField({ id }) {
-  const { findById, editLabel } = useElements();
-  const { type, placeholder, initiallabel } = findById(id);
+  const { findById, editProperty } = useElements();
+  const { type, placeholder, initiallabel, bgColor } = findById(id);
   const [label, setLabel] = useState(initiallabel);
   const [edit, setEdit] = useState(false);
 
@@ -13,7 +13,7 @@ export default function InputField({ id }) {
   });
 
   const onLabelChange = (newLabel) => {
-    editLabel(id, newLabel);
+    editProperty(id, "label", newLabel);
     setLabel(newLabel);
   };
 
@@ -42,6 +42,10 @@ export default function InputField({ id }) {
         type={type}
         id={id}
         placeholder={placeholder}
+        style={{
+          backgroundColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+          borderColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+        }}
       />
     </>
   );

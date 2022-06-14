@@ -10,8 +10,8 @@ export function ElementProvider({ children }) {
   const [elements, setElements] = useState([]);
   const [selected, setSelected] = useState();
   const findById = (id) => elements.find((x) => x.id === id);
-  const editLabel = (id, newLabel) =>
-    (elements.find((x) => x.id === id).label = newLabel);
+  const editProperty = (id, key, newValue) =>
+    (elements.find((x) => x.id === id)[key] = newValue);
 
   const value = {
     elements,
@@ -19,7 +19,7 @@ export function ElementProvider({ children }) {
     selected,
     setSelected,
     findById,
-    editLabel,
+    editProperty,
   };
 
   return (

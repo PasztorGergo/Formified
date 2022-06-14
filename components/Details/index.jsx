@@ -1,14 +1,15 @@
 import React from "react";
 import { useElements } from "../../Context/ElementProvider";
+import InputDetails from "../InputDetails";
 import Style from "./Details.module.css";
 
 export default function Details() {
-  const { selected, setSelected } = useElements();
+  const { selected } = useElements();
   return (
     <div className={Style.details}>
       {selected ? (
         String(selected.id).startsWith("input") ? (
-          "Edit your input"
+          <InputDetails input={selected} />
         ) : String(selected.id).startsWith("heading") ? (
           "Edit you head"
         ) : String(selected.id).startsWith("select") ? (

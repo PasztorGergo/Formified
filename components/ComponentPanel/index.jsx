@@ -24,6 +24,7 @@ export default function ComponentPanel() {
         label: "Label",
         placeholder: "Placeholder",
         type: "text",
+        bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
       },
     ]);
   };
