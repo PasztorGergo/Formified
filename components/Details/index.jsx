@@ -5,13 +5,14 @@ import Style from "./Details.module.css";
 
 export default function Details() {
   const { selected } = useElements();
+
   return (
     <div className={Style.details}>
       {selected ? (
         String(selected.id).startsWith("input") ? (
           <InputDetails input={selected} />
         ) : String(selected.id).startsWith("heading") ? (
-          "Edit you head"
+          "Edit you heading"
         ) : String(selected.id).startsWith("select") ? (
           "Edit your select"
         ) : (

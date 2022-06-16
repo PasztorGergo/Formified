@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useElements } from "../../Context/ElementProvider";
 
 export default function Heading({ id }) {
-  const { findById, editLabel } = useElements();
+  const { findById, editProperty } = useElements();
   const [label, setLabel] = useState(findById(id).label);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function Heading({ id }) {
   });
 
   const onLabelChange = (newLabel) => {
-    editLabel(id, newLabel);
+    editProperty(id, "label", newLabel);
     setLabel(newLabel);
   };
   return (

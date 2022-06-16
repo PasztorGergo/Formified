@@ -1,0 +1,17 @@
+.bgContainer,
+.variant {
+  @apply flex w-full justify-between items-center;
+}
+
+.bgColorButton {
+  @apply p-4 ml-4 rounded-lg outline-none;
+}
+.bgContainer {
+  @apply relative;
+}
+.picker {
+  @apply absolute left-0 top-full;
+}
+.variantSelect {
+  @apply px-2 py-1 rounded-lg uppercase text-sm font-semibold outline-none bg-black bg-opacity-10;
+}

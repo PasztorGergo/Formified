@@ -41,7 +41,7 @@ export default function Display() {
                 >
                   {(Dragprovided) => (
                     <div
-                      className="flex flex-col"
+                      className="flex flex-col items-center w-full"
                       ref={Dragprovided.innerRef}
                       {...Dragprovided.draggableProps}
                       {...Dragprovided.dragHandleProps}

@@ -4,9 +4,10 @@ import Style from "./input.module.css";
 
 export default function InputField({ id }) {
   const { findById, editProperty } = useElements();
-  const { type, placeholder, initiallabel, bgColor } = findById(id);
+  const { type, placeholder, initiallabel, bgColor, variant } = findById(id);
   const [label, setLabel] = useState(initiallabel);
   const [edit, setEdit] = useState(false);
+  const colorTheme = `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`;
 
   useEffect(() => {
     setLabel(findById(id).label);
@@ -38,13 +39,14 @@ export default function InputField({ id }) {
         )}
       </div>
       <input
-        className={Style.input}
+        className={`${Style.input} ${Style[variant]}`}
         type={type}
         id={id}
         placeholder={placeholder}
         style={{
-          backgroundColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
-          borderColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+          backgroundColor: colorTheme,
+          borderColor: colorTheme,
+          outlineColor: colorTheme,
         }}
       />
     </>

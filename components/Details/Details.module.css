@@ -1,5 +1,5 @@
 .details {
-  @apply flex-grow-[0.3] flex flex-col h-full p-4 items-center justify-evenly bg-slate-200 rounded-lg w-2/5;
+  @apply flex-grow-[0.3] flex flex-col h-full p-4 items-stretch justify-evenly bg-slate-200 rounded-lg w-2/5;
 }
 
 .empty {
