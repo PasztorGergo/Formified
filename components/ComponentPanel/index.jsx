@@ -20,11 +20,12 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `input-${prev.length}`,
-        component: <InputField id={`input-${prev.length}`} />,
+        components: [<InputField id={`input-${prev.length}`} />],
         label: "Label",
         placeholder: "Placeholder",
         type: "text",
         bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
+        variant: "filled",
       },
     ]);
   };
@@ -33,8 +34,9 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `select-${prev.length}`,
-        component: <Select id={`select-${prev.length}`} />,
+        components: [<Select id={`select-${prev.length}`} />],
         label: "Label",
+        options: [],
       },
     ]);
   };
@@ -43,7 +45,7 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `heading-${prev.length}`,
-        component: <Heading id={`heading-${prev.length}`} />,
+        components: [<Heading id={`heading-${prev.length}`} />],
         label: "Heading",
       },
     ]);

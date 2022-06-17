@@ -41,13 +41,40 @@ export default function Display() {
                 >
                   {(Dragprovided) => (
                     <div
-                      className="flex flex-col items-center w-full"
+                      className="flex flex-col items-center w-full py-1"
                       ref={Dragprovided.innerRef}
                       {...Dragprovided.draggableProps}
                       {...Dragprovided.dragHandleProps}
                       onClick={() => setSelected(element)}
                     >
-                      {element.component}
+                      {element.components?.length > 1 ? (
+                        <Droppable droppableId={String(elements.length + 1)}>
+                          {(prov) => (
+                            <div {...prov.droppableProps} ref={prov.innerRef}>
+                              {element.components.map((e, i) => (
+                                <Draggable
+                                  key={i}
+                                  draggableId={String(i)}
+                                  index={i}
+                                >
+                                  {(dragProv) => (
+                                    <div
+                                      ref={dragProv.innerRef}
+                                      {...dragProv.dragHandleProps}
+                                      {...dragProv.draggableProps}
+                                      onClick={() => setSelected(e)}
+                                    >
+                                      {e.component}
+                                    </div>
+                                  )}
+                                </Draggable>
+                              ))}
+                            </div>
+                          )}
+                        </Droppable>
+                      ) : (
+                        element.components.map((e) => e)
+                      )}
                     </div>
                   )}
                 </Draggable>

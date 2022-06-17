@@ -5,6 +5,7 @@ import Style from "./selection.module.css";
 export default function Select({ id }) {
   const { findById, editLabel } = useElements();
   const [label, setLabel] = useState(findById(id).label);
+  const { options } = findById(id);
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -37,8 +38,7 @@ export default function Select({ id }) {
         )}
       </div>
       <select name={label} id={id}>
-        <option>Add option ➕</option>
-        <option value="">asd</option>
+        {options?.length < 1 ? <option>Add options ➕</option> : options}
       </select>
     </>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { useElements } from "../../Context/ElementProvider";
 import InputDetails from "../InputDetails";
+import SelectionDetails from "../SelectionDetails";
 import Style from "./Details.module.css";
 
 export default function Details() {
@@ -14,7 +15,7 @@ export default function Details() {
         ) : String(selected.id).startsWith("heading") ? (
           "Edit you heading"
         ) : String(selected.id).startsWith("select") ? (
-          "Edit your select"
+          <SelectionDetails selection={selected} />
         ) : (
           "It's a button!"
         )
