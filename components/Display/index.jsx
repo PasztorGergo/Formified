@@ -62,7 +62,7 @@ export default function Display() {
                                       ref={dragProv.innerRef}
                                       {...dragProv.dragHandleProps}
                                       {...dragProv.draggableProps}
-                                      onClick={() => setSelected(e)}
+                                      onClick={() => setSelected(element)}
                                     >
                                       {e.component}
                                     </div>
@@ -73,7 +73,7 @@ export default function Display() {
                           )}
                         </Droppable>
                       ) : (
-                        element.components.map((e) => e)
+                        element.components?.map((e) => e)
                       )}
                     </div>
                   )}

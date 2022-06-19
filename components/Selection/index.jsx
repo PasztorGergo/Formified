@@ -38,7 +38,14 @@ export default function Select({ id }) {
         )}
       </div>
       <select name={label} id={id}>
-        {options?.length < 1 ? <option>Add options ➕</option> : options}
+        {options?.length < 1 ? (
+          <option>Add options ➕</option>
+        ) : (
+          options.map(({ text, type }, index) => {
+            const element = React.createElement(type, { key: index }, text);
+            return element;
+          })
+        )}
       </select>
     </>
   );

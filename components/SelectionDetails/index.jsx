@@ -8,22 +8,38 @@ export default function SelectionDetails({ selection }) {
   const [editing, setEditing] = useState(false);
   const editRef = useRef();
   const handleOption = () => {
-    findById(selection.id).options.push(
-      <option>New option {String(selection.options.length)}</option>
-    );
+    findById(selection.id).options.push({
+      id: findById(selection.id).options.length,
+      text: `New option ${findById(selection.id).options.length}`,
+      type: "option",
+    });
     setSelected((prev) => ({
       options: [
         ...prev.options,
-        <option>New option {String(selection.options.length)}</option>,
+        {
+          id: prev.options.length,
+          text: `New option ${prev.options.length}`,
+          type: "option",
+        },
       ],
       ...prev,
     }));
   };
   const handleGroup = () => {};
-  const editOption = (opt) => {
-    selection.options.filter((x) => x == opt)[0] = (
-      <option>{editRef.current.value}</option>
-    );
+  const editOption = () => {
+    const edit = selection.options.filter(
+      ({ id }) => id == editRef.current.id
+    )[0];
+    edit.text = editRef.current.value;
+
+    setSelected((prev) => ({
+      options: [
+        ...prev.options,
+        (prev.options.filter(({ id }) => id == editRef.current.id)[0].text =
+          editRef.current.value),
+      ],
+      ...prev,
+    }));
   };
 
   return (
@@ -48,17 +64,18 @@ export default function SelectionDetails({ selection }) {
       <div
         className={` ${Style.scrollable} bg-black bg-opacity-10 rounded-lg px-4 py-1 flex-col overflow-y-scroll  h-24`}
       >
-        {selection.options.map((opt) => (
+        {selection.options.map(({ text, type, id }) => (
           <div onClick={() => setEditing(true)}>
             {editing ? (
               <input
-                value={opt.props.children?.join("")}
-                onChange={() => editOption(opt)}
+                value={text}
+                onChange={editOption}
                 ref={editRef}
                 onBlur={() => setEditing(false)}
+                id={id}
               />
             ) : (
-              opt
+              React.createElement(type, { key: id, id }, text)
             )}
           </div>
         ))}
