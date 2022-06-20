@@ -1,3 +1,6 @@
 .main {
-  @apply flex px-8 h-[80vh];
+  @apply flex px-8 flex-col gap-y-8;
+}
+.editor {
+  @apply flex h-[80vh];
 }

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { useEffect } from "react";
 
 const ElementContext = createContext({});
 
@@ -12,6 +13,10 @@ export function ElementProvider({ children }) {
   const findById = (id) => elements.find((x) => x.id === id);
   const editProperty = (id, key, newValue) =>
     (elements.find((x) => x.id === id)[key] = newValue);
+
+  useEffect(() => {
+    if (!elements.includes(selected) || elements.length < 1) setSelected();
+  }, [elements]);
 
   const value = {
     elements,

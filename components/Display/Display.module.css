@@ -2,5 +2,5 @@
   @apply w-full flex-grow-[0.5] flex justify-center;
 }
 .dropable {
-  @apply shadow-lg w-2/3;
+  @apply border-[1px] border-slate-400 w-2/3;
 }

@@ -47,6 +47,8 @@ export default function ComponentPanel() {
         id: `heading-${prev.length}`,
         components: [<Heading id={`heading-${prev.length}`} />],
         label: "Heading",
+        level: 2,
+        color: { r: 20, g: 20, b: 20, a: 1 },
       },
     ]);
   };

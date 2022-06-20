@@ -4,6 +4,7 @@ import InputDetails from "../InputDetails";
 import RemoveButton from "../RemoveButton";
 import SelectionDetails from "../SelectionDetails";
 import Style from "./Details.module.css";
+import HeaderDetails from "../HeaderDetails";
 
 export default function Details() {
   const { selected } = useElements();
@@ -15,7 +16,7 @@ export default function Details() {
           {String(selected.id).startsWith("input") ? (
             <InputDetails input={selected} />
           ) : String(selected.id).startsWith("heading") ? (
-            "Edit you heading"
+            <HeaderDetails header={selected} />
           ) : String(selected.id).startsWith("select") ? (
             <SelectionDetails selection={selected} />
           ) : (

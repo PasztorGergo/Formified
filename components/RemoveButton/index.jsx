@@ -6,10 +6,7 @@ import { useElements } from "../../Context/ElementProvider";
 export default function RemoveButton({ selected }) {
   const { setElements } = useElements();
   const removeElement = () => {
-    setElements((prev) => {
-      console.log(prev);
-      return Array(prev).filter((x) => x.id == selected.id);
-    });
+    setElements((prev) => prev.filter((x) => x.id != selected.id));
   };
 
   return (
