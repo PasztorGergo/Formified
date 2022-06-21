@@ -111,6 +111,7 @@ export default function SelectionDetails({ selection }) {
                 ref={editRef}
                 onBlur={() => setEditing(false)}
                 id={id}
+                key={id}
               />
             ) : (
               React.createElement(type, { key: id, id }, text)

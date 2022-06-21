@@ -10,7 +10,7 @@ export default function Select({ id }) {
 
   useEffect(() => {
     setLabel(findById(id).label);
-  });
+  }, [label]);
 
   const onLabelChange = (newLabel) => {
     editProperty(id, "label", newLabel);
