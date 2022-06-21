@@ -1,12 +1,30 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Style from "../../styles/ElementDetails.module.css";
 import { RiAddBoxLine } from "react-icons/ri";
 import { useElements } from "../../Context/ElementProvider";
+import { SketchPicker } from "react-color";
 
 export default function SelectionDetails({ selection }) {
-  const { findById, setSelected } = useElements();
+  const { findById, setSelected, editProperty } = useElements();
   const [editing, setEditing] = useState(false);
   const editRef = useRef();
+  const variantRef = useRef();
+  const [bg, setBg] = useState(selection.bgColor);
+  const [bgOpen, setBgOpen] = useState(false);
+
+  useEffect(() => {
+    setBg(selection.bgColor);
+  }, []);
+
+  useEffect(() => {
+    editProperty(selection.id, "bgColor", bg);
+  }, [bg]);
+
+  const handleVariant = () => {
+    setSelected((prev) => ({ variant: variantRef.current.value, ...prev }));
+    editProperty(selection.id, "variant", variantRef.current.value);
+  };
+
   const handleOption = () => {
     findById(selection.id).options.push({
       id: findById(selection.id).options.length,
@@ -44,6 +62,26 @@ export default function SelectionDetails({ selection }) {
 
   return (
     <>
+      <div className={`${Style.bgContainer} ${Style.container}`}>
+        Background{" "}
+        <button
+          className={Style.bgColorButton}
+          onClick={() => setBgOpen((prev) => !prev)}
+          style={{
+            backgroundColor: `rgb(${selection.bgColor.r} ${selection.bgColor.g} ${selection.bgColor.b})`,
+          }}
+        />
+        {bgOpen && (
+          <SketchPicker
+            className={Style.picker}
+            color={selection.bgColor}
+            onChange={(c) => {
+              setSelected((prev) => ({ bgColor: c.rgb, ...prev }));
+              setBg(c.rgb);
+            }}
+          />
+        )}
+      </div>
       <div className={`${Style.container} flex-wrap`}>
         <label htmlFor="" className="basis-full">
           Options
@@ -79,6 +117,20 @@ export default function SelectionDetails({ selection }) {
             )}
           </div>
         ))}
+      </div>
+      <div className={`${Style.variant} ${Style.container}`}>
+        <label htmlFor="variant">Variant</label>
+        <select
+          ref={variantRef}
+          onChange={handleVariant}
+          id="variant"
+          className={Style.variantSelect}
+          defaultValue="filled"
+        >
+          <option value="outlined">outlined</option>
+          <option value="filled">filled</option>
+          <option value="standard">standard</option>
+        </select>
       </div>
     </>
   );

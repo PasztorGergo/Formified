@@ -1,5 +1,5 @@
 .displayContainer {
-  @apply basis-full flex p-4 justify-evenly w-full bg-slate-200 rounded-lg min-h-[80vh];
+  @apply basis-full flex p-4 justify-evenly w-full bg-slate-200 rounded-lg min-h-[30rem] mb-12;
 }
 .htmlContainer,
 .cssContainer {
@@ -9,8 +9,11 @@
 }
 .cssContainer {
 }
+.container {
+  @apply relative h-full;
+}
 .display {
-  @apply bg-black bg-opacity-10 rounded-lg px-2 py-1 h-2/3 w-full flex-grow;
+  @apply bg-black bg-opacity-10 rounded-lg px-2 py-1 h-full w-full flex-grow;
 }
 .containerHeader {
   @apply flex w-full justify-between items-center text-xl;
@@ -28,4 +31,7 @@
 }
 .containerHeader button:hover:after {
   @apply opacity-100 translate-y-0 delay-1000;
+}
+.copy {
+  @apply absolute inset-0 bg-black flex items-center justify-center bg-opacity-50 rounded-lg text-white uppercase text-2xl font-bold text-center h-full w-full transition-all duration-500;
 }

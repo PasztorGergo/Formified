@@ -2,9 +2,12 @@ import React from "react";
 import Style from "./Display.module.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useElements } from "../../Context/ElementProvider";
+import { isEmpty } from "lodash";
+import { useState } from "react";
 
 export default function Display() {
   const { elements, setElements, setSelected } = useElements();
+  const [placeholderProps, setPlaceholderProps] = useState({});
 
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -39,9 +42,13 @@ export default function Display() {
                   draggableId={String(index)}
                   index={index}
                 >
-                  {(Dragprovided) => (
+                  {(Dragprovided, snapshot) => (
                     <div
-                      className="flex flex-col items-center w-full py-1"
+                      className={`flex flex-col items-center w-full py-1 ${
+                        snapshot.isDragging
+                          ? "border-2 border-slate-600 border-dashed bg-white"
+                          : "border-none bg-transparent"
+                      }`}
                       ref={Dragprovided.innerRef}
                       {...Dragprovided.draggableProps}
                       {...Dragprovided.dragHandleProps}
@@ -80,6 +87,17 @@ export default function Display() {
                 </Draggable>
               ))}
               {provided.placeholder}
+              {!isEmpty(placeholderProps) && snapshot.isDraggingOver && (
+                <div
+                  className="placeholder"
+                  style={{
+                    top: placeholderProps.clientY,
+                    left: placeholderProps.clientX,
+                    height: placeholderProps.clientHeight,
+                    width: placeholderProps.clientWidth,
+                  }}
+                />
+              )}
             </div>
           )}
         </Droppable>

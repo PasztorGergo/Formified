@@ -3,9 +3,9 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./selection.module.css";
 
 export default function Select({ id }) {
-  const { findById, editLabel } = useElements();
+  const { findById, editProperty } = useElements();
   const [label, setLabel] = useState(findById(id).label);
-  const { options } = findById(id);
+  const { options, variant, bgColor } = findById(id);
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function Select({ id }) {
   });
 
   const onLabelChange = (newLabel) => {
-    editLabel(id, newLabel);
+    editProperty(id, "label", newLabel);
     setLabel(newLabel);
   };
 
@@ -37,7 +37,16 @@ export default function Select({ id }) {
           <label>{label}</label>
         )}
       </div>
-      <select name={label} id={id}>
+      <select
+        name={label}
+        id={id}
+        className={`${Style.selection} ${Style[variant]}`}
+        style={{
+          backgroundColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+          borderColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+          outlineColor: `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`,
+        }}
+      >
         {options?.length < 1 ? (
           <option>Add options ➕</option>
         ) : (

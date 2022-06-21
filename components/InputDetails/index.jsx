@@ -64,13 +64,13 @@ export default function InputDetails({ input }) {
           className={Style.bgColorButton}
           onClick={() => setBgOpen((prev) => !prev)}
           style={{
-            backgroundColor: `rgb(${bg.r} ${bg.g} ${bg.b})`,
+            backgroundColor: `rgb(${input.bgColor.r} ${input.bgColor.g} ${input.bgColor.b})`,
           }}
         />
         {bgOpen && (
           <SketchPicker
             className={Style.picker}
-            color={bg}
+            color={input.bgColor}
             onChange={(c) => {
               setSelected((prev) => ({ bgColor: c.rgb, ...prev }));
               setBg(c.rgb);
@@ -86,6 +86,7 @@ export default function InputDetails({ input }) {
           id="variant"
           className={Style.variantSelect}
           defaultValue="filled"
+          value={input.variant}
         >
           <option value="outlined">outlined</option>
           <option value="filled">filled</option>
@@ -94,13 +95,7 @@ export default function InputDetails({ input }) {
       </div>
       <div className={`${Style.container} ${Style.inlineEl}`}>
         <label htmlFor="inlineElements">Inline elements</label>
-        <input
-          id="inlineElements"
-          type="number"
-          min="1"
-          value={input.components.length}
-          onChange={inlineHandler}
-        />
+        <input id="inlineElements" type="number" min="1" />
       </div>
     </>
   );

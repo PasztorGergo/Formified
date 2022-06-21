@@ -12,3 +12,18 @@
 .input {
   @apply bg-zinc-300 border-b-2 border-b-zinc-400 focus:border-b-zinc-600 transition-all outline-none py-1 px-3 h-10;
 }
+.selection {
+  @apply border-b-2 border-opacity-60 w-2/3  focus:border-opacity-100 transition-all py-1 px-3 min-h-[2.5rem];
+}
+.standard {
+  background: none !important;
+  outline: none;
+}
+.outlined {
+  @apply outline outline-2 border-none rounded-lg;
+  background: none !important;
+}
+
+.filled {
+  outline: none !important  ;
+}

@@ -1,27 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useElements } from "../../Context/ElementProvider";
 import InputDetails from "../InputDetails";
 import RemoveButton from "../RemoveButton";
 import SelectionDetails from "../SelectionDetails";
 import Style from "./Details.module.css";
 import HeaderDetails from "../HeaderDetails";
+import ButtonDetails from "../ButtonDetails";
 
 export default function Details() {
   const { selected } = useElements();
+  const [detailComp, setDetailComp] = useState();
+
+  useEffect(() => {
+    if (selected) {
+      if (selected.id.startsWith("input"))
+        setDetailComp(<InputDetails input={selected} />);
+      else if (selected.id.startsWith("select"))
+        setDetailComp(<SelectionDetails selection={selected} />);
+      else if (selected.id.startsWith("head"))
+        setDetailComp(<HeaderDetails header={selected} />);
+      else setDetailComp(<ButtonDetails button={selected} />);
+    }
+  }, [selected?.id]);
 
   return (
     <div className={Style.details}>
-      {selected ? (
+      {detailComp ? (
         <>
-          {String(selected.id).startsWith("input") ? (
-            <InputDetails input={selected} />
-          ) : String(selected.id).startsWith("heading") ? (
-            <HeaderDetails header={selected} />
-          ) : String(selected.id).startsWith("select") ? (
-            <SelectionDetails selection={selected} />
-          ) : (
-            "It's a button!"
-          )}
+          {detailComp}
           <RemoveButton selected={selected} />
         </>
       ) : (
