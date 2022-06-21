@@ -103,7 +103,7 @@ export default function SelectionDetails({ selection }) {
         className={` ${Style.scrollable} bg-black bg-opacity-10 rounded-lg px-4 py-1 flex-col overflow-y-scroll  h-24`}
       >
         {selection.options.map(({ text, type, id }) => (
-          <div onClick={() => setEditing(true)}>
+          <div key={id} onClick={() => setEditing(true)}>
             {editing ? (
               <input
                 value={text}
