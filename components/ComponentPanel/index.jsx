@@ -22,6 +22,7 @@ export default function ComponentPanel() {
         id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
         components: [
           <InputField
+            key={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
             id={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
           />,
         ],
@@ -40,6 +41,9 @@ export default function ComponentPanel() {
         id: `select-${prev.filter((x) => x.id.startsWith("select")).length}`,
         components: [
           <Select
+            key={`select-${
+              prev.filter((x) => x.id.startsWith("select")).length
+            }`}
             id={`select-${
               prev.filter((x) => x.id.startsWith("select")).length
             }`}
@@ -59,6 +63,9 @@ export default function ComponentPanel() {
         id: `heading-${prev.filter((x) => x.id.startsWith("heading")).length}`,
         components: [
           <Heading
+            key={`heading-${
+              prev.filter((x) => x.id.startsWith("heading")).length
+            }`}
             id={`heading-${
               prev.filter((x) => x.id.startsWith("heading")).length
             }`}
@@ -77,6 +84,9 @@ export default function ComponentPanel() {
         id: `button-${prev.filter((x) => x.id.startsWith("button")).length}`,
         components: [
           <Button
+            key={`button-${
+              prev.filter((x) => x.id.startsWith("button")).length
+            }`}
             id={`button-${
               prev.filter((x) => x.id.startsWith("button")).length
             }`}
