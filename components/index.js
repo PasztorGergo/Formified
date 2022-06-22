@@ -3,3 +3,4 @@ export { default as ComponentPanel } from "./ComponentPanel";
 export { default as Display } from "./Display";
 export { default as Details } from "./Details";
 export { default as CodeDisplay } from "./CodeDisplay";
+export { default as Footer } from "./Footer";
