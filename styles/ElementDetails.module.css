@@ -25,3 +25,6 @@
 .scrollable::-webkit-scrollbar-track {
   @apply bg-black bg-opacity-10 rounded-lg w-4;
 }
+.range {
+  @apply accent-pink-400 outline-none;
+}

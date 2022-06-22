@@ -12,6 +12,14 @@ export default function HeaderDetails({ header }) {
     editProperty(header.id, "color", color);
   }, [color]);
 
+  const levelHandler = (e) => {
+    setSelected((prev) => ({
+      level: e.target.value,
+      ...prev,
+    }));
+    editProperty(header.id, "level", e.target.value);
+  };
+
   return (
     <>
       <div className={`${Style.bgContainer} ${Style.container}`}>
@@ -33,6 +41,18 @@ export default function HeaderDetails({ header }) {
             }}
           />
         )}
+      </div>
+      <div className={`${Style.container}`}>
+        <label htmlFor="">Font size</label>
+        <input
+          className={Style.range}
+          type={"range"}
+          min="1"
+          max="6"
+          step="1"
+          value={header.level}
+          onChange={(e) => levelHandler(e)}
+        />
       </div>
     </>
   );

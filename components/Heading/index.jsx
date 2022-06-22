@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useElements } from "../../Context/ElementProvider";
+import Style from "./Head.module.css";
 
 export default function Heading({ id }) {
   const { findById, editProperty } = useElements();
@@ -18,7 +19,19 @@ export default function Heading({ id }) {
   return edit ? (
     <input
       type="text"
-      className="self-center text-center font-semibold max-w-fit min-h-fit"
+      className={`self-center text-center font-semibold max-w-fit min-h-fit ${
+        level == 1
+          ? "text-4xl"
+          : level == 2
+          ? "text-2xl"
+          : level == 3
+          ? "text-xl"
+          : level == 4
+          ? "text-lg"
+          : level == 5
+          ? "text-base"
+          : "text-sm"
+      }`}
       value={label}
       onChange={(e) => onLabelChange(e.target.value)}
       onBlur={(e) => {
@@ -28,15 +41,16 @@ export default function Heading({ id }) {
       style={{ color: `rgb(${color.r}, ${color.g}, ${color.b})` }}
     />
   ) : (
-    React.createElement(
-      `h${level}`,
-      {
-        id: id,
-        className: "self-center text-center font-semibold max-w-fit min-h-fit",
-        onClick: () => setEdit(true),
-        style: { color: `rgb(${color.r} ${color.g} ${color.b})` },
-      },
-      label
-    )
+    <div onClick={() => setEdit(true)} className={Style.container}>
+      {React.createElement(
+        `h${level}`,
+        {
+          id: id,
+          className: "self-center text-center font-semibold ",
+          style: { color: `rgb(${color.r} ${color.g} ${color.b})` },
+        },
+        label
+      )}
+    </div>
   );
 }

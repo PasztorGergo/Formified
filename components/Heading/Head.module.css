@@ -1,0 +1,21 @@
+.container {
+  @apply w-full min-h-fit;
+}
+.container h1 {
+  @apply text-center text-4xl;
+}
+.container h2 {
+  @apply text-center text-2xl;
+}
+.container h3 {
+  @apply text-center text-xl;
+}
+.container h4 {
+  @apply text-center text-lg;
+}
+.container h5 {
+  @apply text-center text-base;
+}
+.container h6 {
+  @apply text-center text-sm;
+}

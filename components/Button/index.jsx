@@ -29,13 +29,13 @@ export default function Button({ id }) {
         borderRadius: `${radius}rem`,
       }}
       className={Style.button}
-      onMouseLeave={() => setEdit(false)}
       onClick={() => setEdit(true)}
     >
       {edit ? (
         <input
           value={label}
           onChange={(e) => onLabelChange(e.currentTarget.value)}
+          onBlur={() => setEdit(false)}
         />
       ) : (
         label

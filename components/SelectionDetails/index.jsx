@@ -7,7 +7,6 @@ import { SketchPicker } from "react-color";
 export default function SelectionDetails({ selection }) {
   const { findById, setSelected, editProperty } = useElements();
   const [editing, setEditing] = useState(false);
-  const editRef = useRef();
   const variantRef = useRef();
   const [bg, setBg] = useState(selection.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
@@ -42,19 +41,18 @@ export default function SelectionDetails({ selection }) {
       ],
       ...prev,
     }));
+    console.log(selection.options);
   };
   const handleGroup = () => {};
-  const editOption = () => {
-    const edit = selection.options.filter(
-      ({ id }) => id == editRef.current.id
-    )[0];
-    edit.text = editRef.current.value;
+  const editOption = (e) => {
+    const edit = selection.options[e.target.id];
+    const currentText = e.target.value;
+    edit.text = currentText;
 
     setSelected((prev) => ({
       options: [
         ...prev.options,
-        (prev.options.filter(({ id }) => id == editRef.current.id)[0].text =
-          editRef.current.value),
+        (prev.options[e.target.id].text = currentText),
       ],
       ...prev,
     }));
@@ -107,9 +105,10 @@ export default function SelectionDetails({ selection }) {
             {editing ? (
               <input
                 value={text}
-                onChange={editOption}
-                ref={editRef}
-                onBlur={() => setEditing(false)}
+                onChange={(e) => editOption(e)}
+                onBlur={(e) => {
+                  setEditing(false);
+                }}
                 id={id}
                 key={id}
               />
