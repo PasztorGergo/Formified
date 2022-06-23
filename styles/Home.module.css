@@ -2,5 +2,5 @@
   @apply flex px-8 flex-col gap-y-8;
 }
 .editor {
-  @apply flex h-[80vh];
+  @apply flex min-h-[80vh];
 }

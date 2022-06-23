@@ -5,12 +5,14 @@ import {
   RiInsertRowBottom,
   RiPlayListAddLine,
   RiRadioButtonLine,
+  RiTableLine,
 } from "react-icons/ri";
 import { useElements } from "../../Context/ElementProvider";
 import InputField from "../InputField";
 import Heading from "../Heading";
 import Select from "../Selection";
 import Button from "../Button";
+import InlineBox from "../InlineBox";
 
 export default function ComponentPanel() {
   const { setElements } = useElements();
@@ -20,12 +22,13 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
-        components: [
+        component: (
           <InputField
             key={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
             id={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
-          />,
-        ],
+          />
+        ),
+
         label: "Label",
         placeholder: "Placeholder",
         type: "text",
@@ -39,7 +42,7 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `select-${prev.filter((x) => x.id.startsWith("select")).length}`,
-        components: [
+        component: (
           <Select
             key={`select-${
               prev.filter((x) => x.id.startsWith("select")).length
@@ -47,8 +50,9 @@ export default function ComponentPanel() {
             id={`select-${
               prev.filter((x) => x.id.startsWith("select")).length
             }`}
-          />,
-        ],
+          />
+        ),
+
         label: "Label",
         options: [],
         variant: "filled",
@@ -61,7 +65,7 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `heading-${prev.filter((x) => x.id.startsWith("heading")).length}`,
-        components: [
+        component: (
           <Heading
             key={`heading-${
               prev.filter((x) => x.id.startsWith("heading")).length
@@ -69,8 +73,9 @@ export default function ComponentPanel() {
             id={`heading-${
               prev.filter((x) => x.id.startsWith("heading")).length
             }`}
-          />,
-        ],
+          />
+        ),
+
         label: "Heading",
         level: 2,
         color: { r: 20, g: 20, b: 20, a: 1 },
@@ -82,7 +87,7 @@ export default function ComponentPanel() {
       ...prev,
       {
         id: `button-${prev.filter((x) => x.id.startsWith("button")).length}`,
-        components: [
+        component: (
           <Button
             key={`button-${
               prev.filter((x) => x.id.startsWith("button")).length
@@ -90,8 +95,9 @@ export default function ComponentPanel() {
             id={`button-${
               prev.filter((x) => x.id.startsWith("button")).length
             }`}
-          />,
-        ],
+          />
+        ),
+
         label: "Button",
         bgColor: { r: 12, g: 200, b: 12, a: 1 },
         color: { r: 10, g: 10, b: 10, a: 1 },
@@ -99,6 +105,21 @@ export default function ComponentPanel() {
       },
     ]);
   };
+  const addInline = () => {
+    return setElements((prev) => [
+      ...prev,
+      {
+        id: `inline-${prev.filter((x) => x.id.startsWith("inline")).length}`,
+        component: (
+          <InlineBox
+            id={prev.filter((x) => x.id.startsWith("inline")).length}
+            key={prev.filter((x) => x.id.startsWith("inline")).length}
+          />
+        ),
+      },
+    ]);
+  };
+
   return (
     <aside className={Style.panel}>
       <button aria-label="Text" className={Style.button} onClick={addHeading}>
@@ -116,6 +137,13 @@ export default function ComponentPanel() {
       </button>
       <button aria-label="Button" className={Style.button} onClick={addButton}>
         <RiRadioButtonLine />
+      </button>
+      <button
+        aria-label="Button"
+        className={Style.button}
+        onClick={() => window.alert("Work In Progress 🏗")}
+      >
+        <RiTableLine />
       </button>
     </aside>
   );

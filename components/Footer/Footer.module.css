@@ -2,5 +2,5 @@
   @apply bg-slate-800 text-white flex px-8 py-4 rounded-t-lg w-3/4 mx-auto mt-12 items-center justify-center gap-4;
 }
 .footer a {
-  @apply font-semibold hover:underline hover:text-slate-200;
+  @apply font-semibold hover:underline hover:text-slate-200 self-end;
 }

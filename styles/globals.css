@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply min-h-screen;
+}
+
+body,
+#__next {
+  @apply h-screen flex flex-col;
+}
+
 nav,
 main {
   @apply font-Nunito text-[#2E2532];

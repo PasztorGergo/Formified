@@ -5,7 +5,7 @@ import InputField from "../InputField";
 import Style from "../../styles/ElementDetails.module.css";
 
 export default function InputDetails({ input }) {
-  const { setSelected, editProperty, findById } = useElements();
+  const { setSelected, editProperty } = useElements();
   const [bg, setBg] = useState(input.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
   const variantRef = useRef();
@@ -13,39 +13,6 @@ export default function InputDetails({ input }) {
   const handleVariant = () => {
     setSelected((prev) => ({ variant: variantRef.current.value, ...prev }));
     editProperty(input.id, "variant", variantRef.current.value);
-  };
-
-  const inlineHandler = (e) => {
-    setSelected((prev) => ({
-      components: [
-        ...prev.components,
-        {
-          component: (
-            <InputField id={`input-${input.id}-${prev.components.length}`} />
-          ),
-          label: "Label",
-          placeholder: "Placeholder",
-          type: "text",
-          bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-        },
-      ],
-      ...prev,
-    }));
-    findById(input.id).components = [
-      ...findById(input.id).components,
-      {
-        id: `input-${input.id}-${input.components.length}`,
-        component: (
-          <InputField
-            id={`input-${input.id.split("-")[1]}-${input.components.length}`}
-          />
-        ),
-        label: "Label",
-        placeholder: "Placeholder",
-        type: "text",
-        bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-      },
-    ];
   };
 
   useEffect(() => {
@@ -92,10 +59,6 @@ export default function InputDetails({ input }) {
           <option value="filled">filled</option>
           <option value="standard">standard</option>
         </select>
-      </div>
-      <div className={`${Style.container} ${Style.inlineEl}`}>
-        <label htmlFor="inlineElements">Inline elements</label>
-        <input id="inlineElements" type="number" min="1" />
       </div>
     </>
   );

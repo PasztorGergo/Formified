@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }) {
           name="og:description"
           content="Create beautiful forms for your web pages with Formified! Add inputs, selections, headings, and many more."
         />
+        <link rel="icon" href="/images/formified_logo.svg" />
       </Head>
       <Component {...pageProps} />
       <Footer />

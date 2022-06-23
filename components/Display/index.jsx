@@ -54,34 +54,7 @@ export default function Display() {
                       {...Dragprovided.dragHandleProps}
                       onClick={() => setSelected(element)}
                     >
-                      {element.components?.length > 1 ? (
-                        <Droppable droppableId={String(elements.length + 1)}>
-                          {(prov) => (
-                            <div {...prov.droppableProps} ref={prov.innerRef}>
-                              {element.components.map((e, i) => (
-                                <Draggable
-                                  key={i}
-                                  draggableId={String(i)}
-                                  index={i}
-                                >
-                                  {(dragProv) => (
-                                    <div
-                                      ref={dragProv.innerRef}
-                                      {...dragProv.dragHandleProps}
-                                      {...dragProv.draggableProps}
-                                      onClick={() => setSelected(element)}
-                                    >
-                                      {e.component}
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                            </div>
-                          )}
-                        </Droppable>
-                      ) : (
-                        element.components?.map((e) => e)
-                      )}
+                      {element.component}
                     </div>
                   )}
                 </Draggable>

@@ -23,7 +23,6 @@ export default function App() {
           <Display />
           <Details />
         </div>
-        <CodeDisplay />
       </main>
     </ElementProvider>
   );

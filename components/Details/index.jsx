@@ -19,7 +19,8 @@ export default function Details() {
         setDetailComp(<SelectionDetails selection={selected} />);
       else if (selected.id.startsWith("head"))
         setDetailComp(<HeaderDetails header={selected} />);
-      else setDetailComp(<ButtonDetails button={selected} />);
+      else if (selected.id.startsWith("button"))
+        setDetailComp(<ButtonDetails button={selected} />);
     }
   }, [selected?.id]);
 
