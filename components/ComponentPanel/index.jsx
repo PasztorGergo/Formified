@@ -112,10 +112,35 @@ export default function ComponentPanel() {
         id: `inline-${prev.filter((x) => x.id.startsWith("inline")).length}`,
         component: (
           <InlineBox
-            id={prev.filter((x) => x.id.startsWith("inline")).length}
-            key={prev.filter((x) => x.id.startsWith("inline")).length}
+            id={`inline-${
+              prev.filter((x) => x.id.startsWith("inline")).length
+            }`}
+            key={`inline-${
+              prev.filter((x) => x.id.startsWith("inline")).length
+            }`}
           />
         ),
+        container: [
+          {
+            id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
+            component: (
+              <InputField
+                key={`input-${
+                  prev.filter((x) => x.id.startsWith("input")).length
+                }`}
+                id={`input-${
+                  prev.filter((x) => x.id.startsWith("input")).length
+                }`}
+              />
+            ),
+
+            label: "Label",
+            placeholder: "Placeholder",
+            type: "text",
+            bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
+            variant: "filled",
+          },
+        ],
       },
     ]);
   };

@@ -10,7 +10,14 @@ export function useElements() {
 export function ElementProvider({ children }) {
   const [elements, setElements] = useState([]);
   const [selected, setSelected] = useState();
-  const findById = (id) => elements.find((x) => x.id === id);
+  const findById = (id) =>
+    elements.find((x) => x.id === id) ||
+    elements.reduce((x) =>
+      x.container.find((y) => {
+        console.log(y);
+        return y.id === id;
+      })
+    );
   const editProperty = (id, key, newValue) =>
     (elements.find((x) => x.id === id)[key] = newValue);
 

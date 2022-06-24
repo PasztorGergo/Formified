@@ -23,8 +23,9 @@ export default function CodeDisplay() {
     }
   };
 
-  const complieHTML = () => {
-    const mapped = elements.map((x) => {
+  const complieHTML = (e) => {
+    const onMapped = e || elements;
+    const mapped = onMapped.map((x) => {
       const id = String(x.id);
       if (id.startsWith("input")) {
         return `  <input class="${x.variant}" id="${id}" type="${x.type}" placeholder="${x.placeholder}" />`;
@@ -38,8 +39,12 @@ export default function CodeDisplay() {
 </select>`;
       } else if (id.startsWith("head")) {
         return `  <h${x.level} id="${id}">${x.label}</h${x.level}>`;
-      } else {
+      } else if (id.startsWith("button")) {
         return `  <button id="${id}">${x.label}</button>`;
+      } else {
+        return `  <div id=${id}>
+    ${x.container.map((e) => complieHTML(e))}
+  </div>`;
       }
     });
     return mapped.join(`
@@ -73,6 +78,19 @@ export default function CodeDisplay() {
   font-weight: semibold;
   color: rgb(${x.color.r}, ${x.color.g}, ${x.color.b});
   text-align: center;
+  font-size: ${
+    x.level == 1
+      ? "2.25"
+      : x.level == 2
+      ? "1.5"
+      : x.level == 3
+      ? "1.25"
+      : x.level == 4
+      ? "1.125"
+      : x.level == 5
+      ? "1"
+      : "0.875"
+  }rem
 }`;
       } else if (id.startsWith("select") && x.variant == "filled") {
         return `#${id}{
@@ -91,7 +109,7 @@ export default function CodeDisplay() {
   background-color: white;
   boder-bottom: 2px solid ${bg};
 }`;
-      } else {
+      } else if (id.startsWith("head")) {
         return `#${id}{
   background-color: ${bg};
   color: rgba(${x.color.r}, ${x.color.g}, ${x.color.b}, ${x.color.a});
