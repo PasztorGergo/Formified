@@ -40,17 +40,33 @@ export default function InputField({ id }) {
           <label>{label}</label>
         )}
       </div>
-      <input
-        className={`${Style.input} ${Style[variant]}`}
-        type={type}
-        id={id}
-        placeholder={placeholder}
-        style={{
-          backgroundColor: colorTheme,
-          borderColor: colorTheme,
-          outlineColor: colorTheme,
-        }}
-      />
+      <div className="w-2/3 flex">
+        {type === "tel" && (
+          <select
+            className={`${Style.input} ${Style[variant]} w-2/5 rounded-r-none`}
+            style={{
+              backgroundColor: colorTheme,
+              borderColor: colorTheme,
+              outlineColor: colorTheme,
+            }}
+          >
+            <option value="+36">🇭🇺 +36</option>
+          </select>
+        )}
+        <input
+          className={`${Style.input} ${Style[variant]} ${
+            type === "tel" ? "rounded-l-none" : ""
+          }`}
+          type={type}
+          id={id}
+          placeholder={placeholder}
+          style={{
+            backgroundColor: colorTheme,
+            borderColor: colorTheme,
+            outlineColor: colorTheme,
+          }}
+        />
+      </div>
     </>
   );
 }

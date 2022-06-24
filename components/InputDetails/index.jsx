@@ -9,10 +9,16 @@ export default function InputDetails({ input }) {
   const [bg, setBg] = useState(input.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
   const variantRef = useRef();
+  const typeRef = useRef();
 
   const handleVariant = () => {
     setSelected((prev) => ({ variant: variantRef.current.value, ...prev }));
     editProperty(input.id, "variant", variantRef.current.value);
+  };
+
+  const handleType = () => {
+    setSelected((prev) => ({ type: typeRef.current.value, ...prev }));
+    editProperty(input.id, "type", typeRef.current.value);
   };
 
   useEffect(() => {
@@ -58,6 +64,38 @@ export default function InputDetails({ input }) {
           <option value="outlined">outlined</option>
           <option value="filled">filled</option>
           <option value="standard">standard</option>
+        </select>
+      </div>
+      <div className={`${Style.variant} ${Style.container}`}>
+        <label htmlFor="variant">Type</label>
+        <select
+          ref={typeRef}
+          onChange={handleType}
+          id="type"
+          className={Style.variantSelect}
+          defaultValue="text"
+          value={input.type}
+        >
+          <option value="text">text</option>
+          <option value="number">number</option>
+          <option value="checkbox">checkbox</option>
+          <option value="color">color</option>
+          <option value="date">date</option>
+          <option value="email">email</option>
+          <option value="file">file</option>
+          <option value="hidden">hidden</option>
+          <option value="image">image</option>
+          <option value="month">month</option>
+          <option value="password">password</option>
+          <option value="radio">radio</option>
+          <option value="range">range</option>
+          <option value="reset">reset</option>
+          <option value="search">search</option>
+          <option value="submit">submit</option>
+          <option value="tel">Phone</option>
+          <option value="time">time</option>
+          <option value="url">url</option>
+          <option value="week">week</option>
         </select>
       </div>
     </>
