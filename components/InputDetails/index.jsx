@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import { useElements } from "../../Context/ElementProvider";
-import InputField from "../InputField";
 import Style from "../../styles/ElementDetails.module.css";
 
 export default function InputDetails({ input }) {
-  const { setSelected, editProperty } = useElements();
+  const { setSelected, editProperty, elements } = useElements();
   const [bg, setBg] = useState(input.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
   const variantRef = useRef();
@@ -13,12 +12,26 @@ export default function InputDetails({ input }) {
 
   const handleVariant = () => {
     setSelected((prev) => ({ variant: variantRef.current.value, ...prev }));
-    editProperty(input.id, "variant", variantRef.current.value);
+    editProperty(
+      input.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements).container
+        : elements,
+      "variant",
+      variantRef.current.value
+    );
   };
 
   const handleType = () => {
     setSelected((prev) => ({ type: typeRef.current.value, ...prev }));
-    editProperty(input.id, "type", typeRef.current.value);
+    editProperty(
+      input.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements).container
+        : elements,
+      "type",
+      typeRef.current.value
+    );
   };
 
   useEffect(() => {
@@ -26,7 +39,14 @@ export default function InputDetails({ input }) {
   }, []);
 
   useEffect(() => {
-    editProperty(input.id, "bgColor", bg);
+    editProperty(
+      input.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements).container
+        : elements,
+      "bgColor",
+      bg
+    );
   }, [bg]);
 
   return (

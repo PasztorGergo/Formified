@@ -43,7 +43,7 @@ export default function CodeDisplay() {
         return `  <button id="${id}">${x.label}</button>`;
       } else {
         return `  <div id=${id}>
-    ${x.container.map((e) => complieHTML(e))}
+    ${x.container.map((e) => complieHTML([e]))}
   </div>`;
       }
     });

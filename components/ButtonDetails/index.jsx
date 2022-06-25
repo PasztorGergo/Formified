@@ -4,7 +4,7 @@ import Style from "../../styles/ElementDetails.module.css";
 import { SketchPicker } from "react-color";
 
 export default function ButtonDetails({ button }) {
-  const { findById, setSelected, editProperty } = useElements();
+  const { findById, setSelected, editProperty, elements } = useElements();
   const [bg, setBg] = useState(button.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -15,7 +15,14 @@ export default function ButtonDetails({ button }) {
   }, []);
 
   useEffect(() => {
-    editProperty(button.id, "bgColor", bg);
+    editProperty(
+      button.id,
+      button.id.split("-").length > 2
+        ? findById(`inline-${button.id.split("-")[1]}`, elements)
+        : elements,
+      "bgColor",
+      bg
+    );
   }, [bg]);
 
   return (

@@ -6,6 +6,7 @@ import SelectionDetails from "../SelectionDetails";
 import Style from "./Details.module.css";
 import HeaderDetails from "../HeaderDetails";
 import ButtonDetails from "../ButtonDetails";
+import InlineDetails from "../InlineDetails";
 
 export default function Details() {
   const { selected } = useElements();
@@ -21,6 +22,9 @@ export default function Details() {
         setDetailComp(<HeaderDetails header={selected} />);
       else if (selected.id.startsWith("button"))
         setDetailComp(<ButtonDetails button={selected} />);
+      else {
+        setDetailComp(<InlineDetails inline={selected} />);
+      }
     }
   }, [selected?.id]);
 

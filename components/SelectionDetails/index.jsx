@@ -5,7 +5,7 @@ import { useElements } from "../../Context/ElementProvider";
 import { SketchPicker } from "react-color";
 
 export default function SelectionDetails({ selection }) {
-  const { findById, setSelected, editProperty } = useElements();
+  const { findById, setSelected, editProperty, elements } = useElements();
   const [editing, setEditing] = useState(false);
   const variantRef = useRef();
   const [bg, setBg] = useState(selection.bgColor);
@@ -16,18 +16,49 @@ export default function SelectionDetails({ selection }) {
   }, []);
 
   useEffect(() => {
-    editProperty(selection.id, "bgColor", bg);
+    editProperty(
+      selection.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements,
+      "bgColor",
+      bg
+    );
   }, [bg]);
 
   const handleVariant = () => {
     setSelected((prev) => ({ variant: variantRef.current.value, ...prev }));
-    editProperty(selection.id, "variant", variantRef.current.value);
+    editProperty(
+      selection.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements,
+      "variant",
+      variantRef.current.value
+    );
   };
 
   const handleOption = () => {
-    findById(selection.id).options.push({
-      id: findById(selection.id).options.length,
-      text: `New option ${findById(selection.id).options.length}`,
+    findById(
+      selection.id,
+      selection.id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements
+    ).options.push({
+      id: findById(
+        selection.id,
+        selection.id.split("-").length > 2
+          ? findById(`inline-${id.split("-")[1]}`, elements)
+          : elements
+      ).options.length,
+      text: `New option ${
+        findById(
+          selection.id,
+          id.split("-").length > 2
+            ? findById(`inline-${id.split("-")[1]}`, elements)
+            : elements
+        ).options.length
+      }`,
       type: "option",
     });
     setSelected((prev) => ({

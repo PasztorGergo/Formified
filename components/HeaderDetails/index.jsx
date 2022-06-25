@@ -4,12 +4,20 @@ import { SketchPicker } from "react-color";
 import { useElements } from "../../Context/ElementProvider";
 
 export default function HeaderDetails({ header }) {
-  const { setSelected, editProperty } = useElements();
+  const { setSelected, editProperty, elements } = useElements();
+  const { id } = header;
   const [color, setColor] = useState(header.color);
   const [bgOpen, setBgOpen] = useState(false);
 
   useEffect(() => {
-    editProperty(header.id, "color", color);
+    editProperty(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements).container
+        : elements,
+      "color",
+      color
+    );
   }, [color]);
 
   const levelHandler = (e) => {
@@ -17,7 +25,14 @@ export default function HeaderDetails({ header }) {
       level: e.target.value,
       ...prev,
     }));
-    editProperty(header.id, "level", e.target.value);
+    editProperty(
+      header.id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements).container
+        : elements,
+      "level",
+      e.target.value
+    );
   };
 
   return (

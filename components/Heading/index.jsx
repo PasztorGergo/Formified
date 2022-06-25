@@ -3,17 +3,38 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./Head.module.css";
 
 export default function Heading({ id }) {
-  const { findById, editProperty } = useElements();
-  const [label, setLabel] = useState(findById(id).label);
+  const { findById, editProperty, elements } = useElements();
+  const [label, setLabel] = useState(
+    findById(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements
+    ).label
+  );
   const [edit, setEdit] = useState(false);
   const { level, color } = findById(id);
 
   useEffect(() => {
-    setLabel(findById(id).label);
+    setLabel(
+      findById(
+        id,
+        id.split("-").length > 2
+          ? findById(`inline-${id.split("-")[1]}`, elements)
+          : elements
+      ).label
+    );
   });
 
   const onLabelChange = (newLabel) => {
-    editProperty(id, "label", newLabel);
+    editProperty(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements,
+      "label",
+      newLabel
+    );
     setLabel(newLabel);
   };
   return edit ? (

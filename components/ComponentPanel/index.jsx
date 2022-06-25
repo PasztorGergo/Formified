@@ -17,132 +17,120 @@ import InlineBox from "../InlineBox";
 export default function ComponentPanel() {
   const { setElements } = useElements();
 
-  const addInput = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
-        component: (
-          <InputField
-            key={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
-            id={`input-${prev.filter((x) => x.id.startsWith("input")).length}`}
-          />
-        ),
+  const createId = (element, prev) => {
+    const number =
+      prev.filter((x) => x.id.startsWith(element)).length < 1
+        ? 0
+        : prev.filter((x) => x.id.startsWith(element)).length;
+    return `${element}-${number}`;
+  };
 
-        label: "Label",
-        placeholder: "Placeholder",
-        type: "text",
-        bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-        variant: "filled",
-      },
-    ]);
+  const addInput = () => {
+    return setElements((prev) => {
+      const id = createId("input", prev);
+      return [
+        ...prev,
+        {
+          id,
+          component: <InputField key={id} id={id} />,
+
+          label: "Label",
+          placeholder: "Placeholder",
+          type: "text",
+          bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
+          variant: "filled",
+        },
+      ];
+    });
   };
   const addSelection = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `select-${prev.filter((x) => x.id.startsWith("select")).length}`,
-        component: (
-          <Select
-            key={`select-${
-              prev.filter((x) => x.id.startsWith("select")).length
-            }`}
-            id={`select-${
-              prev.filter((x) => x.id.startsWith("select")).length
-            }`}
-          />
-        ),
+    return setElements((prev) => {
+      const id = createId("selection", prev);
+      return [
+        ...prev,
+        {
+          id,
+          component: <Select key={id} id={id} />,
 
-        label: "Label",
-        options: [],
-        variant: "filled",
-        bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-      },
-    ]);
+          label: "Label",
+          options: [],
+          variant: "filled",
+          bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
+        },
+      ];
+    });
   };
   const addHeading = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `heading-${prev.filter((x) => x.id.startsWith("heading")).length}`,
-        component: (
-          <Heading
-            key={`heading-${
-              prev.filter((x) => x.id.startsWith("heading")).length
-            }`}
-            id={`heading-${
-              prev.filter((x) => x.id.startsWith("heading")).length
-            }`}
-          />
-        ),
+    return setElements((prev) => {
+      const id = createId("heading", prev);
+      return [
+        ...prev,
+        {
+          id: `heading-${
+            prev.filter((x) => x.id.startsWith("heading")).length
+          }`,
+          component: (
+            <Heading
+              key={`heading-${
+                prev.filter((x) => x.id.startsWith("heading")).length
+              }`}
+              id={`heading-${
+                prev.filter((x) => x.id.startsWith("heading")).length
+              }`}
+            />
+          ),
 
-        label: "Heading",
-        level: 2,
-        color: { r: 20, g: 20, b: 20, a: 1 },
-      },
-    ]);
+          label: "Heading",
+          level: 2,
+          color: { r: 20, g: 20, b: 20, a: 1 },
+        },
+      ];
+    });
   };
   const addButton = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `button-${prev.filter((x) => x.id.startsWith("button")).length}`,
-        component: (
-          <Button
-            key={`button-${
-              prev.filter((x) => x.id.startsWith("button")).length
-            }`}
-            id={`button-${
-              prev.filter((x) => x.id.startsWith("button")).length
-            }`}
-          />
-        ),
+    return setElements((prev) => {
+      const id = createId("heading", prev);
+      return [
+        ...prev,
+        {
+          id,
+          component: <Button key={id} id={id} />,
 
-        label: "Button",
-        bgColor: { r: 12, g: 200, b: 12, a: 1 },
-        color: { r: 10, g: 10, b: 10, a: 1 },
-        radius: 0.5,
-      },
-    ]);
+          label: "Button",
+          bgColor: { r: 12, g: 200, b: 12, a: 1 },
+          color: { r: 10, g: 10, b: 10, a: 1 },
+          radius: 0.5,
+        },
+      ];
+    });
   };
   const addInline = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `inline-${prev.filter((x) => x.id.startsWith("inline")).length}`,
-        component: (
-          <InlineBox
-            id={`inline-${
-              prev.filter((x) => x.id.startsWith("inline")).length
-            }`}
-            key={`inline-${
-              prev.filter((x) => x.id.startsWith("inline")).length
-            }`}
-          />
-        ),
-        container: [
-          {
-            id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
-            component: (
-              <InputField
-                key={`input-${
-                  prev.filter((x) => x.id.startsWith("input")).length
-                }`}
-                id={`input-${
-                  prev.filter((x) => x.id.startsWith("input")).length
-                }`}
-              />
-            ),
+    return setElements((prev) => {
+      const id = createId("inline", prev);
+      const inputId = `input-${id.split("-")[1]}-${
+        prev.container?.length || 0
+      }`;
+      return [
+        ...prev,
+        {
+          id,
+          cols: 2,
+          component: <InlineBox id={id} key={id} />,
+          container: [
+            {
+              id: inputId,
+              component: <InputField key={inputId} id={inputId} />,
 
-            label: "Label",
-            placeholder: "Placeholder",
-            type: "text",
-            bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-            variant: "filled",
-          },
-        ],
-      },
-    ]);
+              label: "Label",
+              placeholder: "Placeholder",
+              type: "text",
+              bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
+              variant: "filled",
+            },
+          ],
+        },
+      ];
+    });
   };
 
   return (
@@ -164,9 +152,9 @@ export default function ComponentPanel() {
         <RiRadioButtonLine />
       </button>
       <button
-        aria-label="Button"
+        aria-label="Inline Box"
         className={Style.button}
-        onClick={() => window.alert("Work In Progress 🏗")}
+        onClick={addInline}
       >
         <RiTableLine />
       </button>

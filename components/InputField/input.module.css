@@ -12,6 +12,9 @@
 .input {
   @apply border-b-2 border-opacity-60 w-full  focus:border-opacity-100 transition-all py-1 px-3 h-10;
 }
+.uploadBtn {
+  @apply outline-none border-none px-4 py-3 uppercase font-semibold bg-blue-500 text-white;
+}
 
 .standard {
   background: none !important;

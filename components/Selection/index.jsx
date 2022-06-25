@@ -3,17 +3,43 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./selection.module.css";
 
 export default function Select({ id }) {
-  const { findById, editProperty } = useElements();
-  const [label, setLabel] = useState(findById(id).label);
-  const { options, variant, bgColor } = findById(id);
+  const { findById, editProperty, elements } = useElements();
+  const [label, setLabel] = useState(
+    findById(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements
+    ).label
+  );
+  const { options, variant, bgColor } = findById(
+    id,
+    id.split("-").length > 2
+      ? findById(`inline-${id.split("-")[1]}`, elements)
+      : elements
+  );
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    setLabel(findById(id).label);
+    setLabel(
+      findById(
+        id,
+        id.split("-").length > 2
+          ? findById(`inline-${id.split("-")[1]}`, elements)
+          : elements
+      ).label
+    );
   }, [label]);
 
   const onLabelChange = (newLabel) => {
-    editProperty(id, "label", newLabel);
+    editProperty(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements,
+      "label",
+      newLabel
+    );
     setLabel(newLabel);
   };
 

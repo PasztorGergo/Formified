@@ -3,17 +3,36 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./Button.module.css";
 
 export default function Button({ id }) {
-  const { findById, editProperty } = useElements();
-  const { bgColor, color, radius, initiallabel } = findById(id);
+  const { findById, editProperty, elements } = useElements();
+  const { bgColor, color, radius, initiallabel } = findById(
+    id,
+    id.split("-").length > 2
+      ? findById(`inline-${id.split("-")[1]}`, elements)
+      : elements
+  );
   const [edit, setEdit] = useState(false);
   const [label, setLabel] = useState(initiallabel);
 
   useEffect(() => {
-    setLabel(findById(id).label);
+    setLabel(
+      findById(
+        id,
+        id.split("-").length > 2
+          ? findById(`inline-${id.split("-")[1]}`, elements)
+          : elements
+      ).label
+    );
   });
 
   const onLabelChange = (newLabel) => {
-    editProperty(id, "label", newLabel);
+    editProperty(
+      id,
+      id.split("-").length > 2
+        ? findById(`inline-${id.split("-")[1]}`, elements)
+        : elements,
+      "label",
+      newLabel
+    );
     setLabel(newLabel);
   };
 

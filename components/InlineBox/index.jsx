@@ -18,10 +18,10 @@ export default function InlineBox({ id }) {
             <Draggable draggableId={x.id} index={index}>
               {(prov) => (
                 <div
+                  key={x.id}
                   {...prov.dragHandleProps}
                   {...prov.draggableProps}
                   ref={prov.innerRef}
-                  key={x.id}
                 >
                   {x.component}
                 </div>
