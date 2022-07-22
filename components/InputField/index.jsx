@@ -3,8 +3,9 @@ import { useElements } from "../../Context/ElementProvider";
 import Style from "./input.module.css";
 
 export default function InputField({ id }) {
-  console.log(id);
   const { findById, editProperty } = useElements();
+  console.log(id);
+  console.log(findById(id));
   const { type, placeholder, initiallabel, bgColor, variant } = findById(id);
   const [label, setLabel] = useState(initiallabel);
   const [edit, setEdit] = useState(false);

@@ -4,6 +4,7 @@ import { RiShareForward2Line } from "react-icons/ri";
 import Style from "./Display.module.css";
 import { useEffect } from "react";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function CodeDisplay() {
   const [html, setHtml] = useState("");
@@ -23,10 +24,8 @@ export default function CodeDisplay() {
     }
   };
 
-  const complieHTML = (e) => {
-    const unMapped = e || elements;
-    console.log(unMapped);
-    const mapped = unMapped.map((x) => {
+  const complieHTML = () => {
+    const mapped = elements.map((x) => {
       const id = String(x.id);
       if (id.startsWith("input")) {
         return `  <input class="${x.variant}" id="${id}" type="${x.type}" placeholder="${x.placeholder}" />`;
@@ -42,10 +41,6 @@ export default function CodeDisplay() {
         return `  <h${x.level} id="${id}">${x.label}</h${x.level}>`;
       } else if (id.startsWith("button")) {
         return `  <button id="${id}">${x.label}</button>`;
-      } else {
-        return `  <div id=${id}>
-    ${complieHTML(x.container)}
-  </div>`;
       }
     });
     return mapped.join(`
@@ -57,21 +52,19 @@ export default function CodeDisplay() {
     const mapped = elements.map((x) => {
       const id = String(x.id);
       const bg = `rgba(${x?.bgColor?.r}, ${x?.bgColor?.g}, ${x?.bgColor?.b}, ${x?.bgColor?.a})`;
+      const border = `rgb(${x?.bgColor?.r}, ${x?.bgColor?.g}, ${x?.bgColor?.b})`;
+
       if (id.startsWith("input") && x.variant == "filled") {
         return `#${id}{
   background-color: ${bg};
-  boder-bottom: 2px solid ${bg};
+  border-bottom-color: ${border}
 }`;
       } else if (id.startsWith("input") && x.variant == "outlined") {
         return `#${id}{
-  background-color: white;
   outline: 2px solid ${bg};
-  border-radius: 0.5rem;
-  border: none;
 }`;
       } else if (id.startsWith("input") && x.variant == "standard") {
         return `#${id}{
-  background-color: white;
   boder-bottom: 2px solid ${bg};
 }`;
       } else if (id.startsWith("head")) {
@@ -96,18 +89,14 @@ export default function CodeDisplay() {
       } else if (id.startsWith("select") && x.variant == "filled") {
         return `#${id}{
   background-color: ${bg};
-  boder-bottom: 2px solid ${bg};
+  boder-bottom-color: ${border};
 }`;
       } else if (id.startsWith("select") && x.variant == "outlined") {
         return `#${id}{
-  background-color: white;
   outline: 2px solid ${bg};
-  border-radius: 0.5rem;
-  border: none;
 }`;
       } else if (id.startsWith("select") && x.variant == "standard") {
         return `#${id}{
-  background-color: white;
   boder-bottom: 2px solid ${bg};
 }`;
       } else if (id.startsWith("head")) {
@@ -156,13 +145,16 @@ export default function CodeDisplay() {
           </button>
         </div>
         <div className={Style.container}>
-          <div
-            className={`${Style.copy} ${
-              htmlCopied ? "opacity-100 z-0" : "opacity-0 z-[-1]"
-            }`}
+          <motion.div
+            animate={{
+              visibility: htmlCopied ? "visible" : "hidden",
+              opacity: htmlCopied ? 1 : 0,
+            }}
+            initial={{ visibility: "hidden", opacity: 0 }}
+            className={Style.copy}
           >
             Copied🎉
-          </div>
+          </motion.div>
           <textarea
             readOnly
             value={`<form>
@@ -181,13 +173,16 @@ ${html}
           </button>
         </div>
         <div className={Style.container}>
-          <div
-            className={`${Style.copy} ${
-              cssCopied ? "opacity-100 z-0" : "opacity-0 z-[-1]"
-            }`}
+          <motion.div
+            animate={{
+              visibility: cssCopied ? "visible" : "hidden",
+              opacity: cssCopied ? 1 : 0,
+            }}
+            initial={{ visibility: "hidden", opacity: 0 }}
+            className={Style.copy}
           >
             Copied🎉
-          </div>
+          </motion.div>
           <textarea
             readOnly
             value={`form{
@@ -195,6 +190,22 @@ ${html}
   flex-direction: flex-column;
 }
 
+.filled{
+  boder-bottom-width: 2px;
+  border-bottom-style: solid;
+}
+
+.standard{
+  background-color: white;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.outlined{
+  background-color: white;
+  border-radius: 0.5rem;
+  border: none;
+}
 ${css}`}
             className={Style.display}
             id="cssContainer"

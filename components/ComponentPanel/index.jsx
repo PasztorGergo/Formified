@@ -5,14 +5,12 @@ import {
   RiInsertRowBottom,
   RiPlayListAddLine,
   RiRadioButtonLine,
-  RiTableLine,
 } from "react-icons/ri";
 import { useElements } from "../../Context/ElementProvider";
 import InputField from "../InputField";
 import Heading from "../Heading";
 import Select from "../Selection";
 import Button from "../Button";
-import InlineBox from "../InlineBox";
 
 export default function ComponentPanel() {
   const { setElements } = useElements();
@@ -105,47 +103,6 @@ export default function ComponentPanel() {
       },
     ]);
   };
-  const addInline = () => {
-    return setElements((prev) => [
-      ...prev,
-      {
-        id: `inline-${prev.filter((x) => x.id.startsWith("inline")).length}`,
-        component: (
-          <InlineBox
-            id={`inline-${
-              prev.filter((x) => x.id.startsWith("inline")).length
-            }`}
-            key={`inline-${
-              prev.filter((x) => x.id.startsWith("inline")).length
-            }`}
-          />
-        ),
-        container: [
-          {
-            id: `input-${
-              prev.filter((x) => x.id.startsWith("inline")).length
-            }-${prev.filter((x) => x.id.startsWith("input")).length}`,
-            component: (
-              <InputField
-                key={`input-${
-                  prev.filter((x) => x.id.startsWith("inline")).length
-                }-${prev.filter((x) => x.id.startsWith("input")).length}`}
-                id={`input-${
-                  prev.filter((x) => x.id.startsWith("inline")).length
-                }-${prev.filter((x) => x.id.startsWith("input")).length}`}
-              />
-            ),
-
-            label: "Label",
-            placeholder: "Placeholder",
-            type: "text",
-            bgColor: { r: 120, g: 120, b: 120, a: 0.6 },
-            variant: "filled",
-          },
-        ],
-      },
-    ]);
-  };
 
   return (
     <aside className={Style.panel}>
@@ -164,9 +121,6 @@ export default function ComponentPanel() {
       </button>
       <button aria-label="Button" className={Style.button} onClick={addButton}>
         <RiRadioButtonLine />
-      </button>
-      <button aria-label="Button" className={Style.button} onClick={addInline}>
-        <RiTableLine />
       </button>
     </aside>
   );
