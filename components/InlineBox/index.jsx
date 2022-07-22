@@ -1,36 +1,18 @@
-import React from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import React, { useState } from "react";
 import { useElements } from "../../Context/ElementProvider";
 import Style from "./Inline.module.css";
+import { Reorder } from "framer-motion";
 
 export default function InlineBox({ id }) {
   const { elements, findById } = useElements();
-  console.log(id);
+  const [inline, setInline] = useState(findById(id).container);
   return (
-    <Droppable type="element" droppableId={id}>
-      {(provided) => (
-        <div
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          className={Style.container}
-        >
-          {findById(id).container.map((x, index) => (
-            <Draggable draggableId={x.id} index={index}>
-              {(prov) => (
-                <div
-                  {...prov.dragHandleProps}
-                  {...prov.draggableProps}
-                  ref={prov.innerRef}
-                  key={x.id}
-                >
-                  {x.component}
-                </div>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+    <Reorder.Group values={inline} onReorder={setInline} axis="x">
+      {inline.map((element) => (
+        <Reorder.Item key={element.id} value={element}>
+          {element.component}
+        </Reorder.Item>
+      ))}
+    </Reorder.Group>
   );
 }

@@ -13,13 +13,12 @@ export function ElementProvider({ children }) {
   const findById = (id) =>
     elements.find((x) => x.id === id) ||
     elements.reduce((x) =>
-      x.container.find((y) => {
+      x?.container?.find((y) => {
         console.log(y);
         return y.id === id;
       })
     );
-  const editProperty = (id, key, newValue) =>
-    (elements.find((x) => x.id === id)[key] = newValue);
+  const editProperty = (id, key, newValue) => (findById(id)[key] = newValue);
 
   useEffect(() => {
     if (!elements.includes(selected) || elements.length < 1) setSelected();

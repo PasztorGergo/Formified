@@ -5,15 +5,14 @@ import Style from "./input.module.css";
 export default function InputField({ id }) {
   console.log(id);
   const { findById, editProperty } = useElements();
-  console.log(findById(id));
   const { type, placeholder, initiallabel, bgColor, variant } = findById(id);
   const [label, setLabel] = useState(initiallabel);
   const [edit, setEdit] = useState(false);
-  const colorTheme = `rgba(${bgColor.r}, ${bgColor.g}, ${bgColor.b}, ${bgColor.a})`;
+  const colorTheme = `rgba(${bgColor?.r}, ${bgColor?.g}, ${bgColor?.b}, ${bgColor?.a})`;
 
   useEffect(() => {
     setLabel(findById(id).label);
-  });
+  }, []);
 
   const onLabelChange = (newLabel) => {
     editProperty(id, "label", newLabel);
@@ -25,7 +24,7 @@ export default function InputField({ id }) {
       <div
         onClick={() => setEdit(true)}
         onBlur={() => setEdit(false)}
-        className={Style.label}
+        className={`${Style.label} `}
       >
         {edit ? (
           <input

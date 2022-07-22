@@ -14,10 +14,10 @@ export default function HeaderDetails({ header }) {
 
   const levelHandler = (e) => {
     setSelected((prev) => ({
-      level: e.target.value,
+      level: e.target.value * -1,
       ...prev,
     }));
-    editProperty(header.id, "level", e.target.value);
+    editProperty(header.id, "level", e.target.value * -1);
   };
 
   return (
@@ -47,10 +47,10 @@ export default function HeaderDetails({ header }) {
         <input
           className={Style.range}
           type={"range"}
-          min="1"
-          max="6"
+          min="-6"
+          max="-1"
           step="1"
-          value={header.level}
+          value={header.level * -1}
           onChange={(e) => levelHandler(e)}
         />
       </div>

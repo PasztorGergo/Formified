@@ -122,15 +122,17 @@ export default function ComponentPanel() {
         ),
         container: [
           {
-            id: `input-${prev.filter((x) => x.id.startsWith("input")).length}`,
+            id: `input-${
+              prev.filter((x) => x.id.startsWith("inline")).length
+            }-${prev.filter((x) => x.id.startsWith("input")).length}`,
             component: (
               <InputField
                 key={`input-${
-                  prev.filter((x) => x.id.startsWith("input")).length
-                }`}
+                  prev.filter((x) => x.id.startsWith("inline")).length
+                }-${prev.filter((x) => x.id.startsWith("input")).length}`}
                 id={`input-${
-                  prev.filter((x) => x.id.startsWith("input")).length
-                }`}
+                  prev.filter((x) => x.id.startsWith("inline")).length
+                }-${prev.filter((x) => x.id.startsWith("input")).length}`}
               />
             ),
 
@@ -163,11 +165,7 @@ export default function ComponentPanel() {
       <button aria-label="Button" className={Style.button} onClick={addButton}>
         <RiRadioButtonLine />
       </button>
-      <button
-        aria-label="Button"
-        className={Style.button}
-        onClick={() => window.alert("Work In Progress 🏗")}
-      >
+      <button aria-label="Button" className={Style.button} onClick={addInline}>
         <RiTableLine />
       </button>
     </aside>

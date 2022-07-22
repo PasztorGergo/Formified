@@ -24,8 +24,9 @@ export default function CodeDisplay() {
   };
 
   const complieHTML = (e) => {
-    const onMapped = e || elements;
-    const mapped = onMapped.map((x) => {
+    const unMapped = e || elements;
+    console.log(unMapped);
+    const mapped = unMapped.map((x) => {
       const id = String(x.id);
       if (id.startsWith("input")) {
         return `  <input class="${x.variant}" id="${id}" type="${x.type}" placeholder="${x.placeholder}" />`;
@@ -43,7 +44,7 @@ export default function CodeDisplay() {
         return `  <button id="${id}">${x.label}</button>`;
       } else {
         return `  <div id=${id}>
-    ${x.container.map((e) => complieHTML(e))}
+    ${complieHTML(x.container)}
   </div>`;
       }
     });

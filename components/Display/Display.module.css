@@ -1,6 +1,9 @@
 .display {
-  @apply w-full flex-grow-[0.5] flex justify-center;
+  @apply flex-grow-[0.5] flex flex-col border-[1px] border-slate-400 w-3/4 rounded mx-12;
 }
-.dropable {
-  @apply border-[1px] border-slate-400 w-2/3;
+.draggable {
+  @apply flex flex-col items-center w-full py-3 px-[auto];
+}
+.draggable {
+  @apply flex flex-col items-center w-full py-3 px-[auto];
 }
