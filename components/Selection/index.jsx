@@ -51,7 +51,10 @@ export default function Select({ id }) {
           <option>Add options ➕</option>
         ) : (
           options.map(({ text, type }, index) => {
-            const element = React.createElement(type, { key: index }, text);
+            const element =
+              type === "option"
+                ? React.createElement(type, { key: index }, text)
+                : React.createElement(type, { key: index, label: text });
             return element;
           })
         )}

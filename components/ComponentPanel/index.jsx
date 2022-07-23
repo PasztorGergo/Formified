@@ -77,6 +77,7 @@ export default function ComponentPanel() {
         label: "Heading",
         level: 2,
         color: { r: 20, g: 20, b: 20, a: 1 },
+        align: "center",
       },
     ]);
   };

@@ -7,16 +7,20 @@ export default function ButtonDetails({ button }) {
   const { findById, setSelected, editProperty } = useElements();
   const [bg, setBg] = useState(button.bgColor);
   const [bgOpen, setBgOpen] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const editRef = useRef();
+  const { id, label } = button;
+  const labelRef = useRef();
 
   useEffect(() => {
     setBg(button.bgColor);
   }, []);
 
   useEffect(() => {
-    editProperty(button.id, "bgColor", bg);
+    editProperty(id, "bgColor", bg);
   }, [bg]);
+
+  useEffect(() => {
+    editProperty(id, "label", labelRef.current.value);
+  }, [labelRef.current]);
 
   return (
     <>
@@ -39,6 +43,10 @@ export default function ButtonDetails({ button }) {
             }}
           />
         )}
+      </div>
+      <div className={Style.container}>
+        <label htmlFor="btn-Text">Text</label>
+        <input type="text" id="btn-Text" value={label} ref={labelRef} />
       </div>
     </>
   );

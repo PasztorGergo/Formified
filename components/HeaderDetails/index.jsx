@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Style from "../../styles/ElementDetails.module.css";
 import { SketchPicker } from "react-color";
 import { useElements } from "../../Context/ElementProvider";
+import { FaAlignLeft, FaAlignCenter, FaAlignRight } from "react-icons/fa";
 
 export default function HeaderDetails({ header }) {
   const { setSelected, editProperty } = useElements();
@@ -18,6 +19,11 @@ export default function HeaderDetails({ header }) {
       ...prev,
     }));
     editProperty(header.id, "level", e.target.value * -1);
+  };
+
+  const alignHandler = (e) => {
+    setSelected((prev) => ({ align: e, ...prev }));
+    editProperty(header.id, "align", e);
   };
 
   return (
@@ -53,6 +59,29 @@ export default function HeaderDetails({ header }) {
           value={header.level * -1}
           onChange={(e) => levelHandler(e)}
         />
+      </div>
+      <div className={Style.container}>
+        <p>Text aligment</p>
+        <div className={Style.buttonGroup}>
+          <div>
+            <label htmlFor="left" onClick={(e) => alignHandler("left")}>
+              <FaAlignLeft size={24} className="fill-slate-500" />
+            </label>
+            <input type="radio" name="align" id="left" />
+          </div>
+          <div>
+            <label htmlFor="center" onClick={(e) => alignHandler("center")}>
+              <FaAlignCenter size={24} className="fill-slate-500" />
+            </label>
+            <input type="radio" name="align" id="center" />
+          </div>
+          <div>
+            <label htmlFor="right" onClick={(e) => alignHandler("right")}>
+              <FaAlignRight size={24} className="fill-slate-500" />
+            </label>
+            <input type="radio" name="align" id="right" />
+          </div>
+        </div>
       </div>
     </>
   );

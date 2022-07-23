@@ -4,9 +4,9 @@ import Style from "./Button.module.css";
 
 export default function Button({ id }) {
   const { findById, editProperty } = useElements();
-  const { bgColor, color, radius, initiallabel } = findById(id);
+  const { bgColor, color, radius, label } = findById(id);
   const [edit, setEdit] = useState(false);
-  const [label, setLabel] = useState(initiallabel);
+  const [elabel, setLabel] = useState(label);
 
   useEffect(() => {
     setLabel(findById(id).label);
@@ -31,15 +31,7 @@ export default function Button({ id }) {
       className={Style.button}
       onClick={() => setEdit(true)}
     >
-      {edit ? (
-        <input
-          value={label}
-          onChange={(e) => onLabelChange(e.currentTarget.value)}
-          onBlur={() => setEdit(false)}
-        />
-      ) : (
-        label
-      )}
+      {elabel}
     </button>
   );
 }

@@ -6,7 +6,7 @@ export default function Heading({ id }) {
   const { findById, editProperty } = useElements();
   const [label, setLabel] = useState(findById(id).label);
   const [edit, setEdit] = useState(false);
-  const { level, color } = findById(id);
+  const { level, color, align } = findById(id);
 
   useEffect(() => {
     setLabel(findById(id).label);
@@ -19,7 +19,7 @@ export default function Heading({ id }) {
   return edit ? (
     <input
       type="text"
-      className={`self-center text-center font-semibold max-w-fit min-h-fit ${
+      className={` font-semibold w-full min-h-fit ${
         level == 1
           ? "text-4xl"
           : level == 2
@@ -38,7 +38,10 @@ export default function Heading({ id }) {
         e.target.value == "" && onLabelChange("Give me a name!");
         setEdit(false);
       }}
-      style={{ color: `rgb(${color.r}, ${color.g}, ${color.b})` }}
+      style={{
+        color: `rgb(${color.r}, ${color.g}, ${color.b})`,
+        textAlign: align,
+      }}
     />
   ) : (
     <div onClick={() => setEdit(true)} className={Style.container}>
@@ -46,8 +49,11 @@ export default function Heading({ id }) {
         `h${level}`,
         {
           id: id,
-          className: "self-center text-center font-semibold ",
-          style: { color: `rgb(${color.r} ${color.g} ${color.b})` },
+          className: `self-center font-semibold text-${align}`,
+          style: {
+            color: `rgb(${color.r} ${color.g} ${color.b})`,
+            textAlign: align,
+          },
         },
         label
       )}

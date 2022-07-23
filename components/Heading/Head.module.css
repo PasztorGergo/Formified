@@ -2,20 +2,20 @@
   @apply w-full min-h-fit;
 }
 .container h1 {
-  @apply text-center text-4xl;
+  @apply text-4xl;
 }
 .container h2 {
-  @apply text-center text-2xl;
+  @apply text-2xl;
 }
 .container h3 {
-  @apply text-center text-xl;
+  @apply text-xl;
 }
 .container h4 {
-  @apply text-center text-lg;
+  @apply text-lg;
 }
 .container h5 {
-  @apply text-center text-base;
+  @apply text-base;
 }
 .container h6 {
-  @apply text-center text-sm;
+  @apply text-sm;
 }

@@ -43,7 +43,24 @@ export default function SelectionDetails({ selection }) {
     }));
     console.log(selection.options);
   };
-  const handleGroup = () => {};
+  const handleGroup = () => {
+    findById(selection.id).options.push({
+      id: findById(selection.id).options.length,
+      text: `New option ${findById(selection.id).options.length}`,
+      type: "optgroup",
+    });
+    setSelected((prev) => ({
+      options: [
+        ...prev.options,
+        {
+          id: prev.options.length,
+          text: `New option ${prev.options.length}`,
+          type: "option",
+        },
+      ],
+      ...prev,
+    }));
+  };
   const editOption = (e) => {
     const edit = selection.options[e.target.id];
     const currentText = e.target.value;
@@ -113,7 +130,7 @@ export default function SelectionDetails({ selection }) {
                 key={id}
               />
             ) : (
-              React.createElement(type, { key: id, id }, text)
+              React.createElement(type, { key: id, id, label: text }, text)
             )}
           </div>
         ))}

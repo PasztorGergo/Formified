@@ -9,7 +9,7 @@
   @apply relative;
 }
 .picker {
-  @apply absolute left-0 top-full;
+  @apply absolute left-0 top-full z-10;
 }
 .variantSelect,
 .inlineEl input {
@@ -27,4 +27,25 @@
 }
 .range {
   @apply accent-pink-400 outline-none;
+}
+.buttonGroup {
+  @apply flex justify-center;
+}
+.buttonGroup > * {
+  @apply border-2 border-slate-300 border-solid w-11 overflow-hidden relative;
+}
+.buttonGroup div input {
+  @apply appearance-none bg-white w-full h-full aspect-square;
+}
+.buttonGroup > :first-child {
+  @apply rounded-l-md;
+}
+.buttonGroup > :last-child {
+  @apply rounded-r-md;
+}
+.buttonGroup div :checked {
+  @apply bg-slate-100;
+}
+.buttonGroup div label {
+  @apply absolute z-[1] inset-0 w-full h-full flex justify-center items-center cursor-pointer;
 }
