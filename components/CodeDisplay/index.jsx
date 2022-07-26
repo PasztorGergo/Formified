@@ -5,12 +5,14 @@ import Style from "./Display.module.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { SiCss3, SiTailwindcss } from "react-icons/si";
 
 export default function CodeDisplay() {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [htmlCopied, setHtmlCopied] = useState(false);
   const [cssCopied, setCssCopied] = useState(false);
+  const [isTailwind, setCSSMode] = useState(false);
   const { elements, selected, setElements } = useElements();
 
   const copy = (data, type) => {
@@ -54,21 +56,22 @@ export default function CodeDisplay() {
       const bg = `rgba(${x?.bgColor?.r}, ${x?.bgColor?.g}, ${x?.bgColor?.b}, ${x?.bgColor?.a})`;
       const border = `rgb(${x?.bgColor?.r}, ${x?.bgColor?.g}, ${x?.bgColor?.b})`;
 
-      if (id.startsWith("input") && x.variant == "filled") {
-        return `#${id}{
+      if (!isTailwind) {
+        if (id.startsWith("input") && x.variant == "filled") {
+          return `#${id}{
   background-color: ${bg};
   border-bottom-color: ${border}
 }`;
-      } else if (id.startsWith("input") && x.variant == "outlined") {
-        return `#${id}{
+        } else if (id.startsWith("input") && x.variant == "outlined") {
+          return `#${id}{
   outline: 2px solid ${bg};
 }`;
-      } else if (id.startsWith("input") && x.variant == "standard") {
-        return `#${id}{
+        } else if (id.startsWith("input") && x.variant == "standard") {
+          return `#${id}{
   boder-bottom: 2px solid ${bg};
 }`;
-      } else if (id.startsWith("head")) {
-        return `#${id}{
+        } else if (id.startsWith("head")) {
+          return `#${id}{
   font-weight: semibold;
   color: rgb(${x.color.r}, ${x.color.g}, ${x.color.b});
   text-align: center;
@@ -86,27 +89,73 @@ export default function CodeDisplay() {
       : "0.875"
   }rem
 }`;
-      } else if (id.startsWith("select") && x.variant == "filled") {
-        return `#${id}{
+        } else if (id.startsWith("select") && x.variant == "filled") {
+          return `#${id}{
   background-color: ${bg};
   boder-bottom-color: ${border};
 }`;
-      } else if (id.startsWith("select") && x.variant == "outlined") {
-        return `#${id}{
+        } else if (id.startsWith("select") && x.variant == "outlined") {
+          return `#${id}{
   outline: 2px solid ${bg};
 }`;
-      } else if (id.startsWith("select") && x.variant == "standard") {
-        return `#${id}{
+        } else if (id.startsWith("select") && x.variant == "standard") {
+          return `#${id}{
   boder-bottom: 2px solid ${bg};
 }`;
-      } else if (id.startsWith("head")) {
-        return `#${id}{
+        } else if (id.startsWith("head")) {
+          return `#${id}{
   background-color: ${bg};
   color: rgba(${x.color.r}, ${x.color.g}, ${x.color.b}, ${x.color.a});
   border-radius: ${x.radius}rem;
   border: none;
   outline: none;
 }`;
+        }
+      } else {
+        if (id.startsWith("input") && x.variant == "filled") {
+          return `#${id}{
+    @apply bg-[${bg}] border-b-[${border}];
+  }`;
+        } else if (id.startsWith("input") && x.variant == "outlined") {
+          return `#${id}{
+    @apply outline-[${bg}];
+  }`;
+        } else if (id.startsWith("input") && x.variant == "standard") {
+          return `#${id}{
+    @apply border-b-[${bg}];
+  }`;
+        } else if (id.startsWith("head")) {
+          return `#${id}{
+    @apply font-semibold text-[rgb(${x.color.r}, ${x.color.g}, ${
+            x.color.b
+          })] text-${x.align} text-${
+            x.level == 1
+              ? "4xl"
+              : x.level == 2
+              ? "2xl"
+              : x.level == 3
+              ? "xl"
+              : x.level == 4
+              ? "lg"
+              : x.level == 5
+              ? "base"
+              : "sm"
+          };
+}`;
+        } else if (id.startsWith("select") && x.variant == "filled") {
+          return `#${id}{
+    background-color: ${bg};
+    boder-bottom-color: ${border};
+  }`;
+        } else if (id.startsWith("select") && x.variant == "outlined") {
+          return `#${id}{
+    outline: 2px solid ${bg};
+  }`;
+        } else if (id.startsWith("select") && x.variant == "standard") {
+          return `#${id}{
+    boder-bottom: 2px solid ${bg};
+  }`;
+        }
       }
     });
 
@@ -124,7 +173,7 @@ export default function CodeDisplay() {
 
   useEffect(() => {
     setCss(compileCSS());
-  }, [selected]);
+  }, [selected, isTailwind]);
 
   return (
     <div className={Style.displayContainer}>
@@ -168,6 +217,21 @@ ${html}
       <div className={Style.cssContainer}>
         <div className={Style.containerHeader}>
           <h2>CSS</h2>
+          <div className={Style.switchContainer}>
+            <SiCss3 color={isTailwind ? "inherit" : "#3366bb"} />
+            <div
+              className={Style.switch}
+              data-isOn={isTailwind}
+              onClick={() => setCSSMode((prev) => !prev)}
+            >
+              <motion.div
+                layout
+                className={Style.handle}
+                transition={{ type: "spring", stiffness: 700, damping: 30 }}
+              />
+            </div>
+            <SiTailwindcss color={isTailwind ? "#0ea5e9" : "inherit"} />
+          </div>
           <button aria-label="Copy" onClick={() => copy(css, "css")}>
             <RiShareForward2Line />
           </button>
@@ -185,7 +249,31 @@ ${html}
           </motion.div>
           <textarea
             readOnly
-            value={`form{
+            value={
+              isTailwind
+                ? `form{
+  @apply flex flex-col;
+}
+
+input{
+  @apply transition-all py-1 px-3 h-10;
+}
+
+.filled{
+  @apply border-b-2 border-opacity-60 focus:border-opacity-100;
+}
+
+.standard{
+  @apply bg-white;
+}
+
+.outlined{
+  @apply outline outline-2 border-none rounded-lg;
+}
+
+${css}
+`
+                : `form{
   display: flex;
   flex-direction: flex-column;
 }
@@ -206,7 +294,8 @@ ${html}
   border-radius: 0.5rem;
   border: none;
 }
-${css}`}
+${css}`
+            }
             className={Style.display}
             id="cssContainer"
           ></textarea>
